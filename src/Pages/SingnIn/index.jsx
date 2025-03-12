@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth'
 
 import './SingnIn.css'
 
@@ -10,7 +11,16 @@ export default function SingnIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { singIn } = useContext(AuthContext)
 
+    function handleSignIn(e){
+        e.preventDefault();
+
+
+        if(email !== '' && password !== ''){
+            singIn();
+        }
+    }
 
     return (
         <div className='container-center'>
@@ -19,7 +29,7 @@ export default function SingnIn() {
                     <img src={logo} alt="Logo SupportHub" />
                 </div>
 
-                <form>
+                <form onSubmit = {handleSignIn}>
                     <h1>Entrar</h1>
                     <input
                         type="text"
