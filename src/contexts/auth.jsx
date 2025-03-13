@@ -1,8 +1,10 @@
 import { useState, createContext, useEffect } from 'react';
 import { auth, db } from '../services/FBConnection'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { toast } from 'react-toastify'
+
+import { useNavigate } from 'react-router-dom'
 
 export const AuthContext = createContext({});
 
@@ -12,11 +14,39 @@ function AuthProvider({ children }) {
     //Criando um loading para a hora do cadastro
     const [loadingAuth, setLoadingAuth] = useState(false)
 
-    function singIn(email, password) {
-        console.log(email)
-        console.log(password);
+    //Utilização para após login entrar no Dash 
+    const navigate = useNavigate();
 
-        toast.success("USUÁRIO LOGADO COM SUCESSO")
+    async function singIn(email, password, setEmail, setPassword) {
+        setLoadingAuth(true);
+
+        await signInWithEmailAndPassword(auth, email, password)
+            .then(async (value) => {
+                let uid = value.user.uid;
+                //Buscando os dados do usuario
+                const docRef = doc(db, "users", uid);
+                const docSnap = await getDoc(docRef)
+
+                let data = {
+                    uid: uid,
+                    nome: docSnap.data().nome,
+                    email: value.user.email,
+                    avatarUrl: docSnap.data().avatarUrl
+                }
+
+
+                setUser(data);
+                storageUser(data);
+                setLoadingAuth(false)
+                toast.success(`Bem-vindo(a), ${data.nome}!`);
+                navigate("/dashboard")
+            })
+            .catch((error) => {
+                toast.warning("Ops..E-mail ou senha incorretos");
+                setEmail("");   
+                setPassword(""); 
+                setLoadingAuth(false);
+            })
     }
 
     //Cadastro de novo usuario
@@ -43,17 +73,24 @@ function AuthProvider({ children }) {
 
 
                         setUser(data);
-
-                        toast.success("Novo usuario cadastrado com sucesso")
+                        storageUser(data)
+                        toast.success(`Bem-vindo(a), ${data.nome}!`);
                         setLoadingAuth(false)
+                        navigate("/dashboard")
+
                     })
 
             })
             //Caso tenha algum erro..
-            .cath((error) => {
-                toast.warning(error);
+            .catch((error) => {
+                toast.error("Ops..algo deu errado, tente novamente mais tarde!");
                 setLoadingAuth(false);
             })
+    }
+
+    //Salvando infos no servidor local
+    function storageUser(data) {
+        localStorage.setItem('@ticketLocal', JSON.stringify(data))
     }
 
     return (

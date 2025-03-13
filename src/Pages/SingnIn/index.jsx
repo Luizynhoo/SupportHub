@@ -11,14 +11,14 @@ export default function SingnIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { singIn } = useContext(AuthContext)
+    const { singIn, loadingAuth } = useContext(AuthContext)
 
-    function handleSignIn(e){
+    async function handleSignIn(e) {
         e.preventDefault();
 
 
-        if(email !== '' && password !== ''){
-            singIn();
+        if (email !== '' && password !== '') {
+            await singIn(email, password, setEmail, setPassword);
         }
     }
 
@@ -29,7 +29,7 @@ export default function SingnIn() {
                     <img src={logo} alt="Logo SupportHub" />
                 </div>
 
-                <form onSubmit = {handleSignIn}>
+                <form onSubmit={handleSignIn}>
                     <h1>Entrar</h1>
                     <input
                         type="text"
@@ -38,14 +38,17 @@ export default function SingnIn() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
 
-                    <input 
+                    <input
                         type="password"
                         placeholder="********"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button type='submit' value='Entrar'>Acessar</button>
+                    <button type='submit' value='Entrar'>
+                        {/* Se tiver true vai aparecer se não  */}
+                        {loadingAuth ? 'Carregando...' : 'Acessar'}
+                    </button>
                 </form>
 
                 <Link to="/register">Criar Conta</Link>
