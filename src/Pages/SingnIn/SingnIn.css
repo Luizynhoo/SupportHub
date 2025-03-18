@@ -23,6 +23,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    border-radius: 9px;
 }
 
 .login-area img{

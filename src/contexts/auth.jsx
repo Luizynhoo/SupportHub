@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from 'react';
 import { auth, db } from '../services/FBConnection'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 
@@ -14,8 +14,27 @@ function AuthProvider({ children }) {
     //Criando um loading para a hora do cadastro
     const [loadingAuth, setLoadingAuth] = useState(false)
 
+    //Criando um loading para as pages privadas (para retornar a home)
+    const [loading, setLoading] =  useState()
+
     //Utilização para após login entrar no Dash 
     const navigate = useNavigate();
+
+
+    //Não perder os dados ao efetuar o login
+    useEffect(() =>{
+        async function loadUser() {
+            const storageUser = localStorage.getItem('@ticketLocal')
+
+            if(storageUser){
+                //Retornando para um objeto
+                setUser(JSON.parse(storageUser))
+                setLoading(false);
+            }
+        }
+        setLoading(false)
+        loadUser();
+    }, [])
 
     async function singIn(email, password, setEmail, setPassword) {
         setLoadingAuth(true);
@@ -34,7 +53,7 @@ function AuthProvider({ children }) {
                     avatarUrl: docSnap.data().avatarUrl
                 }
 
-
+                
                 setUser(data);
                 storageUser(data);
                 setLoadingAuth(false)
@@ -93,6 +112,14 @@ function AuthProvider({ children }) {
         localStorage.setItem('@ticketLocal', JSON.stringify(data))
     }
 
+    //Usuario poder fazer logout após se logar
+    async function logout() {
+        await signOut(auth);
+        localStorage.removeItem('@ticketLocal');
+        //Limpando as informações do usuario
+        setUser(null);
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -100,7 +127,9 @@ function AuthProvider({ children }) {
                 user,
                 singIn,
                 signUp,
+                logout,
                 loadingAuth,
+                loading
             }}>
             {children}
         </AuthContext.Provider>
