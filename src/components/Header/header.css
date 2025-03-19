@@ -1,0 +1,121 @@
+.sideBar{
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    background-color: #181c2e;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sideBar div{
+    background-color: #181c2e;
+    background-position: center;
+    background-size: cover;
+    height: 150px;
+}
+
+.sideBar div{
+    padding-top: 30px;
+}
+
+.sideBar div img{
+    width: 90px;
+    height: 90px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: drop-shadow(2px 3px 6px #121212);
+    -webkit-filter: drop-shadow(2px 3px 6px #121212);
+}
+
+.sideBar .icons a{
+    display:  block;
+    padding: 16px;
+    display: flex;
+    text-decoration: none;
+    color: rgb(255, 255, 255, 0.7);
+    align-items: center;
+    transition: ease-in-out 0.4s;
+}
+
+.sideBar .icons a svg{
+    margin-right: 0.5rem;
+}
+
+.sideBar .icons a:hover{
+    background-color: #121212;
+    color: #fff;
+}
+
+.content{
+    margin-left: 200px;
+    padding: 1px 16px;
+}
+
+
+
+/* BOTÃO PARA ABRIR/FECHAR NO MOBILE */
+.toggle-btn {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+@media (width <= 700px){
+    .sideBar{
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sideBar div{
+        height: 100px;
+    }
+
+    div.content{
+        margin-left: 0;
+    }
+
+    .sideBar .icons{
+        display: flex;
+        align-items: center;
+        position: center;
+    }
+
+    .sideBar .icons a{
+        align-items: center;
+        float: left;
+    }
+
+
+    .toggle-btn {
+        display: block;
+    }
+
+    .sideBar {
+        width: 100%;
+        height: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sideBar.open {
+        transform: translateY(0);
+    }
+
+    .sideBar.closed {
+        transform: translateY(-100%);
+    }
+
+}
