@@ -50,7 +50,7 @@ form{
     margin-bottom: 1rem;
     height: 35px;
     border: none; /* Remove todas as bordas */
-    border-bottom: 2px solid #2A245D; /* Apenas linha inferior */
+    border-bottom: 2px solid #181C2E; /* Apenas linha inferior */
     padding: 10px;
     font-size: 15px;
     background-color: #fff;
@@ -63,28 +63,28 @@ form button{
     border: 0;
     border-radius: 4px;
     color: #fff;
-    background-color: #2A245D;
+    background-color: #181C2E;
 }
 
 form button {
     height: 35px;
     border: 0;
     border-radius: 4px;
-    background-color: #2A245D;
+    background-color: #181C2E;
     position: relative;
     font-size: 1rem;
     font-weight: bold;
-    box-shadow: 0px 4px 0px #2A245D; 
+    box-shadow: 0px 4px 0px #181C2E; 
     transition: transform 0.2s ease, box-shadow 0.2s ease; 
 }
 
 form button:hover {
     transform: translateY(-5px); 
-    box-shadow: 0px 6px 0px #2A245D; 
+    box-shadow: 0px 6px 0px #181C2E; 
 }
 
 .login a {
     margin: 1.5rem 0;
-    color: #2A245D;
+    color: #181C2E;
     cursor: pointer;
 }

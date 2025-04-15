@@ -8,6 +8,7 @@ import SingnUp from '../Pages/SingnUp';
 
 import Dashboard from '../Pages/Dashboard';
 import Profile from '../Pages/Profile'
+import Customers from '../Pages/Customers';
 
 function RoutesApp() {
     return (
@@ -15,8 +16,9 @@ function RoutesApp() {
             <Route path='/' element={<SingnIn/>}/>
             <Route path='/register' element={<SingnUp/>}/>
 
-            <Route  path='/dashboard' element={ <Private><Dashboard/></Private> }/>
-            <Route  path='/profile' element={ <Private><Profile/></Private> }/>
+            <Route path='/Customers' element={<Private><Customers/></Private>}/>
+            <Route  path='/Dashboard' element={ <Private><Dashboard/></Private> }/>
+            <Route  path='/Profile' element={ <Private><Profile/></Private> }/>
         </Routes>
     )
 }

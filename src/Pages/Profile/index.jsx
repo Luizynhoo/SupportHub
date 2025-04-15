@@ -95,8 +95,7 @@ export default function Profile() {
                     storageUser(data);
                 })
         } else if (nome !== '' && imgAvatar !== null) {
-            //Atualizar nome e foto 
-            handleUpload()
+            toast.error('Nosso sistema não conseguiu salvar a foto agora. Tente mais tarde.');
         }
     }
 
