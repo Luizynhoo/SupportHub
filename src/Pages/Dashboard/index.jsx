@@ -27,12 +27,14 @@ export default function Dashboard() {
     //Para armazenar a ultima saida
     const [lastDocs, setLastDocs] = useState()
     const [loadingMore, setLoadingMore] = useState(false)
+    const listVisible = 1
+    const listLoading = 5
 
     useEffect(() => {
         async function loadChamados() {
             const startTime = Date.now();
 
-            const a = query(listRef, orderBy('created', 'desc'), limit(5));
+            const a = query(listRef, orderBy('created', 'desc'), limit(listVisible));
             const querySnapshot = await getDocs(a);
             setChamados([]);
             await updateState(querySnapshot);
@@ -109,7 +111,7 @@ export default function Dashboard() {
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         try {
-            const a = query(listRef, orderBy('created', 'desc'), startAfter(lastDocs), limit(5));
+            const a = query(listRef, orderBy('created', 'desc'), startAfter(lastDocs), limit(listLoading));
 
             // Executa ambas = fetch e delay
             const [querySnapshot] = await Promise.all([
@@ -195,7 +197,7 @@ export default function Dashboard() {
 
                             {!loadingMore && !isEmpty &&
                                 <button className="btn-more" onClick={handleMore}>
-                                    <span>+ Chamados</span>
+                                    <span>VER MAIS</span>
                                 </button>
                             }
 
