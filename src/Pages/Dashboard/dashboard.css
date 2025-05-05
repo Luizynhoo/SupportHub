@@ -1,4 +1,4 @@
-.new{
+.new {
     float: right;
     margin-bottom: 1.5em;
     background-color: #83bf02;
@@ -13,23 +13,23 @@
     transition: ease-in-out 0.3s;
 }
 
-.new svg{
+.new svg {
     margin-right: 5px;
 }
 
-.new:hover{
+.new:hover {
     background-color: #5fd204;
     transform: scale(1.1);
 }
 
-.dashboard{
+.dashboard {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-table{
+table {
     border: 1px solid #ccc;
     margin: 0;
     padding: 0;
@@ -38,29 +38,30 @@ table{
     border-collapse: collapse;
 }
 
-table caption{
+table caption {
     font-size: 1.5em;
     margin: 0.5em 0.75em;
 }
 
 table tr {
     background-color: #f8f8f8;
-    border:  1px solid #ddd;
+    border: 1px solid #ddd;
     padding: 0.35em;
 }
 
-table th, table td{
+table th,
+table td {
     padding: 0.6em;
     text-align: center;
 }
 
-table th{
+table th {
     font-size: 0.85em;
     letter-spacing: 0.15em;
     text-transform: uppercase;
 }
 
-table td .action{
+table td .action {
     border: 0;
     padding: 5px;
     border-radius: 4px;
@@ -68,26 +69,127 @@ table td .action{
     margin-right: 3px;
 }
 
-table td .action svg{
+table td .action svg {
     vertical-align: middle;
 }
 
-table td .badge{
+table td .badge {
     padding: 3px;
     border-radius: 3px;
     color: #fff;
 }
 
-@media screen and (max-width:600px){
-    table{
-        border: 0;
-    };
+.dashboard span {
+    margin: 2em 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
 
-    table caption{
+
+/*animação de loading*/
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #181c2e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-message {
+    display: block;
+    color: #181c2e;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
+@keyframes dots {
+    0% {
+        content: '';
+    }
+
+    33% {
+        content: '.';
+    }
+
+    66% {
+        content: '..';
+    }
+
+    100% {
+        content: '...';
+    }
+}
+
+/*+chamados*/
+
+.btn-more {
+    padding: 10px 20px;
+    background-color: #181c2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin: 20px auto;
+}
+
+.btn-more:hover {
+    background-color: #181c2e;
+    transform: translateY(-2px);
+}
+
+.loading-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #333;
+    margin: 20px auto;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #181c2e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+@media screen and (max-width:600px) {
+    table {
+        border: 0;
+    }
+
+    ;
+
+    table caption {
         font-size: 1.3em;
     }
 
-    table thead{
+    table thead {
         border: none;
         height: 1px;
         margin: -1px;
@@ -97,20 +199,20 @@ table td .badge{
         width: 1px;
     }
 
-    table tr{
+    table tr {
         border-bottom: 3px solid #ddd;
         display: block;
         margin-bottom: 0.60em;
     }
 
-    table td{
+    table td {
         border-bottom: 1px solid #ddd;
         display: block;
         font-size: 0.8em;
         text-align: right;
     }
 
-    table td::before{
+    table td::before {
         content: attr(data-label);
         float: left;
         font-weight: bold;

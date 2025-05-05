@@ -15,7 +15,7 @@ function AuthProvider({ children }) {
     const [loadingAuth, setLoadingAuth] = useState(false)
 
     //Criando um loading para as pages privadas (para retornar a home)
-    const [loading, setLoading] =  useState()
+    const [loading, setLoading] =  useState(true)
 
     //Utilização para após login entrar no Dash 
     const navigate = useNavigate();
@@ -31,8 +31,10 @@ function AuthProvider({ children }) {
                 setUser(JSON.parse(storageUser))
                 setLoading(false);
             }
+            
+            setLoading(false)
         }
-        setLoading(false)
+
         loadUser();
     }, [])
 
