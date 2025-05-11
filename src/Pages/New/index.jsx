@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { db } from '../../services/FBConnection'
-import { collection, getDocs, getDoc, doc, addDoc } from 'firebase/firestore'
+import { collection, getDocs, getDoc, doc, addDoc, updateDoc } from 'firebase/firestore'
 
 import Header from '../../components/Header/header'
 import Title from '../../components/Title'
 import { FiPlusCircle } from 'react-icons/fi'
-import {toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import './new.css'
 
@@ -15,6 +16,8 @@ const listRef = collection(db, "Clientes")
 
 export default function New() {
   const { user } = useContext(AuthContext);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [customers, setCustomers] = useState([])
   const [loadCustomer, setLoadCustomer] = useState(true);
@@ -23,6 +26,7 @@ export default function New() {
   const [complemento, setComplemento] = useState('')
   const [assunto, setAssunto] = useState('Suporte')
   const [status, setStatus] = useState('Aberto')
+  const [IDCustomer, setIDCustomer] = useState(false)
 
   useEffect(() => {
     async function loadCustomers() {
@@ -47,6 +51,11 @@ export default function New() {
           setCustomers(lista);
           setLoadCustomer(false);
 
+          //Criando uma função para puxar os dados do ID, caso tenha um ID
+          if (id) {
+            loadID(lista)
+          }
+
         })
         .catch((error) => {
           console.log("ERRRO AO BUSCAR OS CLIENTES", error)
@@ -57,6 +66,26 @@ export default function New() {
 
     loadCustomers();
   }, [])
+
+  async function loadID(lista) {
+    //Buscando o chamado e devolvendo para getDoc
+    const docRef = doc(db, "Chamados", id);
+    await getDoc(docRef)
+      .then((snapshot) => {
+        setAssunto(snapshot.data().assunto)
+        setStatus(snapshot.data().status)
+        setComplemento(snapshot.data().complemento)
+
+        //filtrando qual é o cliente
+        let index = lista.findIndex(item => item.id === snapshot.data().clienteID)
+        setCustomerSelected(index);
+        setIDCustomer(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIDCustomer(false);
+      })
+  }
 
   function hadleChangeCustomer(e) {
     setCustomerSelected(e.target.value)
@@ -78,8 +107,33 @@ export default function New() {
   async function handleRegister(e) {
     e.preventDefault();
 
-    //Criando pasta no banco para registrar os chamados
-    await addDoc(collection(db, "Chamados"),{
+    //Atualizando chamado
+    if (IDCustomer) {
+      const docRef = doc(db, "Chamados", id)
+      await updateDoc(docRef, {
+        cliente: customers[customerSelected].nomeEmpresa,
+        clienteID: customers[customerSelected].id,
+        assunto: assunto,
+        complemento: complemento,
+        status: status,
+        userId: user.uid,
+      })
+      .then(()=>{
+        toast.info("Chamado atualizado com sucesso!")
+        setCustomerSelected(0);
+        setComplemento('');
+        navigate('/dashboard')
+      })
+      .catch((error)=>{
+        console.log(error);
+        toast.error("Erro ao atualizar chamado, tente novamente.")
+      })
+
+      return;
+    }
+
+    //Criando pasta no banco para registrar os chamados e rigistrando
+    await addDoc(collection(db, "Chamados"), {
       created: new Date(),
       cliente: customers[customerSelected].nomeEmpresa,
       clienteID: customers[customerSelected].id,
@@ -88,15 +142,15 @@ export default function New() {
       status: status,
       userId: user.uid,
     })
-    .then(() =>{
-      toast.success("Novo chamado registrado!")
-      setComplemento("")
-      setCustomerSelected(0)
-    })
-    .catch((error)=>{
-      console.log(error)
-      toast.error("Ops..erro ao registrar, tente novamente mais tarde!")
-    })
+      .then(() => {
+        toast.success("Novo chamado registrado!")
+        setComplemento("")
+        setCustomerSelected(0)
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error("Erro ao registrar chamado, tente novamente.")
+      })
   }
 
   return (
@@ -104,7 +158,7 @@ export default function New() {
       <Header />
 
       <div className="content">
-        <Title name="Novo chamado">
+        <Title name={ id ? "Editando Chamado" : "Novo Chamado"}>
           <FiPlusCircle size={25} color='#f8f8f8' />
         </Title>
 
@@ -174,7 +228,7 @@ export default function New() {
               onChange={(e) => setComplemento(e.target.value)}
             />
 
-            <button type="submit">Registrar</button>
+            <button type="submit">{ id ? "Atualizar" : "Registrar"}</button>
 
           </form>
         </div>

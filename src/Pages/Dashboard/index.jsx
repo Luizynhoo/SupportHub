@@ -11,6 +11,7 @@ import { db } from '../../services/FBConnection'
 
 //formatando data
 import { format } from 'date-fns'
+import Modal from '../../components/Modal'
 
 import './dashboard.css'
 
@@ -24,10 +25,14 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true)
     const [isEmpty, setIsEmpty] = useState(false)
 
+    //Controlando quando o modal deve ser aberto ou não 
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState()
+
     //Para armazenar a ultima saida
     const [lastDocs, setLastDocs] = useState()
     const [loadingMore, setLoadingMore] = useState(false)
-    const listVisible = 1
+    const listVisible = 2
     const listLoading = 5
 
     useEffect(() => {
@@ -125,6 +130,13 @@ export default function Dashboard() {
         }
     }
 
+    function toggleModal(item){
+        //tornando o modal true para aparecer
+        setShowPostModal(!showPostModal)
+        //Item clicado passando para setDetail
+        setDetail(item)
+    }
+
 
 
 
@@ -176,12 +188,13 @@ export default function Dashboard() {
                                                 </td>
                                                 <td data-label="Cadastrado">{item.createdFormat}</td>
                                                 <td data-label="#">
-                                                    <button className="action" style={{ backgroundColor: '#3583f6' }}>
+                                                    <button className="action" style={{ backgroundColor: '#3583f6' }} onClick={() => toggleModal(item)}>
                                                         <FiSearch color='#FFF' size={17} />
                                                     </button>
-                                                    <button className="action" style={{ backgroundColor: '#f6a935' }}>
+                                                    {/* Levando para o /new, mas tbm para o chamado desejado */}
+                                                    <Link  to={`/Dashboard/New/${item.id}`} className="action" style={{ backgroundColor: '#f6a935' }}>
                                                         <FiEdit2 color='#FFF' size={17} />
-                                                    </button>
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         )
@@ -206,6 +219,14 @@ export default function Dashboard() {
                 </>
 
             </div>
+
+            {/* Se for true ele aparece */}
+            {showPostModal &&(
+                <Modal
+                    conteudo={detail}
+                    close={() => setShowPostModal(!showPostModal)}
+                />
+            )}
         </div>
     )
 }

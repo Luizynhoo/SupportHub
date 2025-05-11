@@ -1,4 +1,4 @@
-.sideBar{
+.sideBar {
     width: 200px;
     margin: 0;
     padding: 0;
@@ -8,18 +8,18 @@
     overflow: auto;
 }
 
-.sideBar div{
+.sideBar .avatar-container {
     background-color: #181c2e;
     background-position: center;
     background-size: cover;
     height: 150px;
-}
-
-.sideBar div{
     padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sideBar div img{
+.sideBar .avatar-container img {
     width: 90px;
     height: 90px;
     display: block;
@@ -30,84 +30,91 @@
     -webkit-filter: drop-shadow(2px 3px 6px #121212);
 }
 
-.sideBar .icons a{
-    display:  block;
-    padding: 16px;
+.sideBar .icons {
+    padding: 20px 0;
     display: flex;
-    text-decoration: none;
-    color: rgb(255, 255, 255, 0.7);
+    flex-direction: column;
     align-items: center;
-    transition: ease-in-out 0.4s;
+    justify-content: flex-start;
+    height: calc(100% - 150px); /* Ajusta para ocupar o espaço restante */
+    overflow-y: auto;
 }
 
-.sideBar .icons a svg{
+.sideBar .icons a {
+    display: flex;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    align-items: center;
+    width: 100%;
+    transition: ease-in-out 0.4s;
+    justify-content: flex-start; /* Alinha à esquerda para melhor legibilidade */
+}
+
+.sideBar .icons a svg {
     margin-right: 0.5rem;
 }
 
-.sideBar .icons a:hover{
+.sideBar .icons a:hover {
     background-color: #121212;
     color: #fff;
 }
 
-.content{
+.content {
     margin-left: 200px;
     padding: 1px 16px;
 }
 
-
-
 /* BOTÃO PARA ABRIR/FECHAR NO MOBILE */
-.toggle-btn {
+.mobile-header {
     display: none;
+}
+
+.toggle-btn {
     position: fixed;
-    top: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    background: #181c2e;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: #2a2f4a;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1000;
+    padding: 5px;
 }
 
-@media (width <= 700px){
-    .sideBar{
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-
-    .sideBar div{
-        height: 100px;
-    }
-
-    div.content{
-        margin-left: 0;
-    }
-
-    .sideBar .icons{
-        display: flex;
-        align-items: center;
-        position: center;
-    }
-
-    .sideBar .icons a{
-        align-items: center;
-        float: left;
-    }
-
-
-    .toggle-btn {
-        display: block;
-    }
-
+@media (max-width: 768px) {
     .sideBar {
         width: 100%;
-        height: 250px;
+        height: 40%;
         position: fixed;
-        top: 0;
+        bottom: 0;
         left: 0;
-        transform: translateY(-100%);
-        transition: transform 0.3s ease-in-out;
+        transform: translateY(100%);
+        transition: transform 0.4s ease-in-out;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding-top: 10px;
     }
 
     .sideBar.open {
@@ -115,7 +122,39 @@
     }
 
     .sideBar.closed {
-        transform: translateY(-100%);
+        transform: translateY(100%);
     }
 
+    .sideBar .avatar-container {
+        height: 100px;
+    }
+
+    .sideBar .icons {
+        display: flex;
+        margin-top: 30px;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .sideBar .icons a {
+        flex-direction: column;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .sideBar .icons a svg {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .content {
+        margin-left: 0;
+        padding-bottom: 70px;
+    }
+
+    .mobile-header {
+        display: block;
+    }
 }

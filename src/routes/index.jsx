@@ -23,6 +23,8 @@ function RoutesApp() {
 
             //"subpags"
             <Route path='/Dashboard/New' element={<Private><New/></Private>}/>
+            //Edit chamados
+            <Route path='/Dashboard/New/:id' element={<Private><New/></Private>}/>
         </Routes>
     )
 }
