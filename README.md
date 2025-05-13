@@ -33,6 +33,4 @@ Construído com **React.js** no frontend e **Firebase** no backend, o sistema of
 ![Página de Login](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121708.png)
 - 👨‍💼 Criando o Cliente
 ![Criando o Cliente](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121716.png)
-- 👤 Página de Perfil
-![Página de Perfil](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121722.png)
 
