@@ -36,7 +36,9 @@ table {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
+    box-shadow: 0 4px 130px rgba(0, 0, 0, 0.05);
 }
+
 
 table caption {
     font-size: 1.5em;
@@ -56,9 +58,22 @@ table td {
 }
 
 table th {
-    font-size: 0.85em;
-    letter-spacing: 0.15em;
+    font-size: 0.9em;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px;
+    color: #333;
+}
+
+table tbody tr:hover {
+    background-color: #ebe9e9;
+    transition: 0.2s ease-in-out;
+}
+
+table td {
+    padding: 14px;
+    font-size: 0.95em;
+    word-wrap: break-word;
 }
 
 table td .action {
@@ -66,12 +81,18 @@ table td .action {
     padding: 5px;
     border-radius: 4px;
     display: inline-block;
-    margin-right: 3px;
+    margin: 0 2px;
+    transition: transform 0.2s;
+}
+
+table td .action:hover {
+    transform: scale(1.1);
 }
 
 table td .action svg {
     vertical-align: middle;
 }
+
 
 table td .badge {
     padding: 3px;

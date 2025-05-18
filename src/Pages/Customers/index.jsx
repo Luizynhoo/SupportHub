@@ -8,6 +8,8 @@ import Title from '../../components/Title/index'
 import { FiUser } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
+import './customers.css' // Import the CSS file
+
 export default function Customers() {
   const [nome, setNome] = useState('')
   const [cnpj, setCnpj] = useState('')
@@ -87,91 +89,98 @@ export default function Customers() {
         </Title>
 
         <div className="container">
-          <form className="form-profile" onSubmit={handleRegister}>
+          <div className="form-wrapper">
+            <form className="form-profile" onSubmit={handleRegister}>
+              <div className="form-columns">
+                <div className="column">
+                  <label>Nome da Empresa</label>
+                  <input
+                    type="text"
+                    placeholder="Nome da empresa"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                  />
 
-            <label>Nome da Empresa</label>
-            <input
-              type="text"
-              placeholder="Nome da empresa"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
+                  <label>CNPJ</label>
+                  <input
+                    type="text"
+                    placeholder="00.000.000/0000-00"
+                    value={cnpj}
+                    onChange={(e) => {
+                      const rawValue = e.target.value.replace(/\D/g, '')
+                      if (rawValue.length <= 14) {
+                        setCnpj(
+                          rawValue
+                            .replace(/^(\d{2})(\d)/, '$1.$2')
+                            .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+                            .replace(/\.(\d{3})(\d)/, '.$1/$2')
+                            .replace(/(\d{4})(\d)/, '$1-$2')
+                        )
+                      }
+                    }}
+                  />
 
-            <label>CNPJ</label>
-            <input
-              type="text"
-              placeholder="00.000.000/0000-00"
-              value={cnpj}
-              onChange={(e) => {
-                const rawValue = e.target.value.replace(/\D/g, '')
-                if (rawValue.length <= 14) {
-                  setCnpj(
-                    rawValue
-                      .replace(/^(\d{2})(\d)/, '$1.$2')
-                      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-                      .replace(/\.(\d{3})(\d)/, '.$1/$2')
-                      .replace(/(\d{4})(\d)/, '$1-$2')
-                  )
-                }
-              }}
-            />
+                  <label>CEP</label>
+                  <input
+                    type="text"
+                    placeholder="00000-000"
+                    value={cep}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '')
+                      setCep(value)
+                      if (value.length === 8) {
+                        buscarEndereco(value)
+                      }
+                    }}
+                  />
 
-            <label>CEP</label>
-            <input
-              type="text"
-              placeholder="00000-000"
-              value={cep}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '')
-                setCep(value)
-                if (value.length === 8) {
-                  buscarEndereco(value)
-                }
-              }}
-            />
+                  <label>Rua</label>
+                  <input
+                    type="text"
+                    placeholder="Rua / Avenida"
+                    value={rua}
+                    onChange={(e) => setRua(e.target.value)}
+                  />
+                </div>
 
-            <label>Rua</label>
-            <input
-              type="text"
-              placeholder="Rua / Avenida"
-              value={rua}
-              onChange={(e) => setRua(e.target.value)}
-            />
+                <div className="column">
+                  <label>Bairro</label>
+                  <input
+                    type="text"
+                    placeholder="Bairro"
+                    value={bairro}
+                    onChange={(e) => setBairro(e.target.value)}
+                  />
 
-            <label>Bairro</label>
-            <input
-              type="text"
-              placeholder="Bairro"
-              value={bairro}
-              onChange={(e) => setBairro(e.target.value)}
-            />
+                  <label>Cidade</label>
+                  <input
+                    type="text"
+                    placeholder="Cidade"
+                    value={cidade}
+                    onChange={(e) => setCidade(e.target.value)}
+                  />
 
-            <label>Cidade</label>
-            <input
-              type="text"
-              placeholder="Cidade"
-              value={cidade}
-              onChange={(e) => setCidade(e.target.value)}
-            />
+                  <label>Estado</label>
+                  <input
+                    type="text"
+                    placeholder="Estado (UF)"
+                    value={estado}
+                    onChange={(e) => setEstado(e.target.value)}
+                  />
 
-            <label>Estado</label>
-            <input
-              type="text"
-              placeholder="Estado (UF)"
-              value={estado}
-              onChange={(e) => setEstado(e.target.value)}
-            />
+                  <label>Complemento</label>
+                  <input
+                    type="text"
+                    placeholder="Complemento (opcional)"
+                    value={complemento}
+                    onChange={(e) => setComplemento(e.target.value)}
+                  />
+                </div>
+              </div>
 
-            <label>Complemento</label>
-            <input
-              type="text"
-              placeholder="Complemento (opcional)"
-              value={complemento}
-              onChange={(e) => setComplemento(e.target.value)}
-            />
-
-            <button type="submit">Salvar</button>
-          </form>
+              <button type="submit">Salvar</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

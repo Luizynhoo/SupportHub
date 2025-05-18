@@ -6,6 +6,8 @@ import { AuthContext } from '../../contexts/auth'
 
 import logo from '../../assets/Logo2.png'
 
+import './SingnUp.css'
+
 export default function SingnUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +32,7 @@ export default function SingnUp() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <h1>Entrar</h1>
+                    <h1>Cadastrar</h1>
 
                     <input
                         type="text"
