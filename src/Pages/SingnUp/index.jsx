@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/auth'
 
 import logo from '../../assets/Logo2.png'
 
-import './SingnUp.css'
+
 
 export default function SingnUp() {
     const [email, setEmail] = useState('');

@@ -62,7 +62,8 @@ table th {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 12px;
-    color: #333;
+    color: #ffffff;
+    background-color: #181C2E;
 }
 
 table tbody tr:hover {
@@ -191,6 +192,34 @@ table td .badge {
     animation: spin 1s linear infinite;
 }
 
+
+.filter-container {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.filter-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1; 
+    max-width: 50%; 
+}
+
+.filter-select {
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.filter-select:hover {
+    cursor: pointer;
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -240,3 +269,5 @@ table td .badge {
         text-transform: uppercase;
     }
 }
+
+
