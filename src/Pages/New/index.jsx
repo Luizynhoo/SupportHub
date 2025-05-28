@@ -118,16 +118,16 @@ export default function New() {
         status: status,
         userId: user.uid,
       })
-      .then(()=>{
-        toast.info("Chamado atualizado com sucesso!")
-        setCustomerSelected(0);
-        setComplemento('');
-        navigate('/dashboard')
-      })
-      .catch((error)=>{
-        console.log(error);
-        toast.error("Erro ao atualizar chamado, tente novamente.")
-      })
+        .then(() => {
+          toast.info("Chamado atualizado com sucesso!")
+          setCustomerSelected(0);
+          setComplemento('');
+          navigate('/dashboard')
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Erro ao atualizar chamado, tente novamente.")
+        })
 
       return;
     }
@@ -158,78 +158,83 @@ export default function New() {
       <Header />
 
       <div className="content">
-        <Title name={ id ? "Editando Chamado" : "Novo Chamado"}>
+        <Title name={id ? "Editando Chamado" : "Novo Chamado"}>
           <FiPlusCircle size={25} color='#f8f8f8' />
         </Title>
 
         <div className="container">
           <form className="form-profile" onSubmit={handleRegister}>
-
-            <label>Clientes</label>
-            {
-              loadCustomer ? (
-                <input type="text" disabled={true} value="Carregando..." />
-              ) : (
-                <select value={customerSelected} onChange={hadleChangeCustomer}>
-                  {customers.map((item, index) => {
-                    return (
+            <div className="row">
+              <div className="column">
+                <label>Clientes</label>
+                {loadCustomer ? (
+                  <input type="text" disabled={true} value="Carregando..." />
+                ) : (
+                  <select value={customerSelected} onChange={hadleChangeCustomer}>
+                    {customers.map((item, index) => (
                       <option key={index} value={index}>
                         {item.nomeEmpresa}
                       </option>
-                    )
-                  })}
+                    ))}
+                  </select>
+                )}
+              </div>
+              <div className="column">
+                <label>Assunto</label>
+                <select value={assunto} onChange={handleChangeSelect}>
+                  <option value="Suporte">Suporte</option>
+                  <option value="Visita Tecnica">Visita Técnica</option>
+                  <option value="Financeiro">Financeiro</option>
                 </select>
-              )
-            }
-
-            <label>Assunto</label>
-            <select value={assunto} onChange={handleChangeSelect}>
-              <option value="Suporte">Suporte</option>
-              <option value="Visita Tecnica">Visita Tecnica</option>
-              <option value="Financeiro">Financeiro</option>
-            </select>
+              </div>
+            </div>
 
             <label>Status</label>
             <div className="status">
-              <input
-                type="radio"
-                name="radio"
-                value="Aberto"
-                onChange={handleOptionChange}
-                checked={status === 'Aberto'}
-              />
-              <span>Em aberto</span>
+              <div className="status-option">
+                <input
+                  type="radio"
+                  name="radio"
+                  value="Aberto"
+                  onChange={handleOptionChange}
+                  checked={status === "Aberto"}
+                />
+                <span>Aberto</span>
+              </div>
 
-              <input
-                type="radio"
-                name="radio"
-                value="Progresso"
-                onChange={handleOptionChange}
-                checked={status === 'Progresso'}
-              />
-              <span>Progresso</span>
+              <div className="status-option">
+                <input
+                  type="radio"
+                  name="radio"
+                  value="Progresso"
+                  onChange={handleOptionChange}
+                  checked={status === "Progresso"}
+                />
+                <span>Progresso</span>
+              </div>
 
-              <input
-                type="radio"
-                name="radio"
-                value="Atendido"
-                onChange={handleOptionChange}
-                checked={status === 'Atendido'}
-              />
-              <span>Atendido</span>
+              <div className="status-option">
+                <input
+                  type="radio"
+                  name="radio"
+                  value="Atendido"
+                  onChange={handleOptionChange}
+                  checked={status === "Atendido"}
+                />
+                <span>Atendido</span>
+              </div>
             </div>
-
 
             <label>Complemento</label>
             <textarea
-              type="text"
               placeholder="Descreva seu problema (opcional)."
               value={complemento}
               onChange={(e) => setComplemento(e.target.value)}
             />
 
-            <button type="submit">{ id ? "Atualizar" : "Registrar"}</button>
-
+            <button type="submit" className="submit-button">
+              {id ? "Atualizar" : "Registrar"}
+            </button>
           </form>
         </div>
       </div>
