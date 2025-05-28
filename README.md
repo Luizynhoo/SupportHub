@@ -24,13 +24,13 @@ Construído com **React.js** no frontend e **Firebase** no backend, o sistema of
 ---
 
 - 🔑 Página de Login  
-![Página de Login](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121520.png)
+![Página de Login](https://github.com/Luizynhoo/SupportHub/blob/main/imgs/Login.png)
 - 📋 Lista de Chamados
-![Lista de Chamados](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121550.png)
+![Lista de Chamados](https://github.com/Luizynhoo/SupportHub/blob/main/imgs/Chamados.png)
 - ➕ Formulário de Novo Chamado
-![Formulário de Novo Chamado](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121657.png) 
+![Formulário de Novo Chamado](https://github.com/Luizynhoo/SupportHub/blob/main/imgs/NewChamado.png) 
 - ✏️ Models dos Chamados
-![Página de Login](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121708.png)
+![Models dos Chamados](https://github.com/Luizynhoo/SupportHub/blob/main/imgs/ModelChamados.png)
 - 👨‍💼 Criando o Cliente
-![Criando o Cliente](https://github.com/Luizynhoo/SupportHub/blob/main/img/Captura%20de%20tela%202025-05-13%20121716.png)
+![Criando o Cliente](https://github.com/Luizynhoo/SupportHub/blob/main/imgs/CriandoClientes.png)
 
