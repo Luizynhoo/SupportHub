@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import ParticlesComponent from '../../components/Particles/particles'
 
 import { AuthContext } from '../../contexts/auth'
 
@@ -26,6 +26,9 @@ export default function SingnUp() {
 
     return (
         <div className='container-center'>
+            <div className="particles-wrapper">
+                <ParticlesComponent id="particles" />
+            </div>
             <div className='login'>
                 <div className='login-area'>
                     <img src={logo} alt="Logo SupportHub" />
